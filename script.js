@@ -12,9 +12,14 @@ function goBack() {
   fullElemPageBackBtn.forEach(function (back) {
     back.addEventListener("click", function () {
       fullElemPage[back.id].style.display = "none";
-      fullElemPageBackBtn[back.id].style.transiton = "all ease 0.3s";
     });
   });
 }
 
 goBack();
+
+   let form = document.querySelector('.addTask form')
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+})
