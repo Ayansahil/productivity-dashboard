@@ -160,9 +160,10 @@ nav {
   flex-direction: column;
   align-items: flex-start;
   padding: 2rem;
+  
 }
 
-.todo-container .addTask form input {
+.todo-container .addTask form input#task-inp {
   padding: 1.2rem 2rem;
   width: 100%;
   font-size: 1.5rem;
@@ -239,4 +240,15 @@ nav {
 
 .task button:active {
   scale: 0.96;
+}
+
+.mark{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding:1rem 0;
+  margin-bottom: 1rem;
+  gap: 0.3rem;
+  
 }

@@ -18,8 +18,12 @@ function goBack() {
 
 goBack();
 
-   let form = document.querySelector('.addTask form')
+let form = document.querySelector(".addTask form");
+let taskInput = document.querySelector(".addTask form input");
+let taskDetailsInput = document.querySelector(".addTask form textarea");
 
-form.addEventListener('submit',function(e){
+
+
+form.addEventListener("submit", function (e) {
   e.preventDefault();
-})
+});
