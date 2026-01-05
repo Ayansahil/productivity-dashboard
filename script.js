@@ -75,23 +75,38 @@ function todoList() {
     taskDetailsInput.value = "";
   });
 }
-
 todoList();
+
+function dailyPlanner(){
+  let dayPlanner = document.querySelector(".day-planner");
+let dayPlanData = JSON.parse(localStorage.getItem("dayPlanData")) || {};
 
 let hours = Array.from({ length: 18 }, function (elem, idx) {
   return `${6 + idx}:00 - ${7 + idx}:00`;
 });
 
 wholedaySum = "";
-hours.forEach(function (elem) {
+hours.forEach(function (elem, idx) {
+  let saveData = dayPlanData[idx] || "";
   wholedaySum =
-    wholedaySum +
-    `  <div class="day-planner-time">
-            <p>${elem}</p>
-            <input type="text" placeholder="..." />
-          </div>`;
+  wholedaySum +
+  `  <div class="day-planner-time">
+  <p>${elem}</p>
+  <input id="${idx}" type="text" placeholder="..." value="${saveData}" />
+  </div>`;
+});
+dayPlanner.innerHTML = wholedaySum;
+
+let dayPlannerInput = document.querySelectorAll(".day-planner input");
+dayPlannerInput.forEach(function (elem) {
+  elem.addEventListener("input", function () {
+    dayPlanData[elem.id] = elem.value;
+    localStorage.setItem("dayPlanData", JSON.stringify(dayPlanData));
+  });
 });
 
-let dayPlanner = document.querySelector(".day-planner");
+}
+dailyPlanner()
 
-dayPlanner.innerHTML = wholedaySum;
+
+// api='https://motivational-spark-api.vercel.app/api/quotes/random'

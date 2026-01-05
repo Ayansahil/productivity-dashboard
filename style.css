@@ -267,9 +267,6 @@ nav {
   gap: 0.3rem;
 }
 
-.daily-planner-fullpage {
-  display: block;
-}
 .daily-planner-fullpage h2 {
   font-size: 2.5rem;
 }
@@ -310,7 +307,68 @@ nav {
   padding-top: 30px;
 }
 .day-planner .day-planner-time p {
+  font-size: 0.875rem;
+  color: var(--pri);
   position: absolute;
   top: 10%;
   left: 1%;
+}
+.motivation-fullpage {
+  display: block;
+}
+
+.motivation-fullPage-container {
+  background-color: var(--four);
+  width: 100%;
+  height: 90%;
+  margin-top: 2rem;
+  border-radius: 10px;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivation-container {
+  height: 600px;
+  width: 800px;
+  background-image: url(./QuoBg.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.motivation-1 {
+  width: 450px;
+  height: 260px;
+  padding: 30px;
+  margin-top: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  overflow-y: auto;
+  word-wrap: break-word;
+
+  background: transparent;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 2px solid #b3bc4f;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 25px rgba(179, 188, 79, 0.462),
+    inset 0 0 20px rgba(255, 255, 180, 0.345);
+
+  color: #fff;
 }
