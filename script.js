@@ -77,36 +77,90 @@ function todoList() {
 }
 todoList();
 
-function dailyPlanner(){
+function dailyPlanner() {
   let dayPlanner = document.querySelector(".day-planner");
-let dayPlanData = JSON.parse(localStorage.getItem("dayPlanData")) || {};
+  let dayPlanData = JSON.parse(localStorage.getItem("dayPlanData")) || {};
 
-let hours = Array.from({ length: 18 }, function (elem, idx) {
-  return `${6 + idx}:00 - ${7 + idx}:00`;
-});
+  let hours = Array.from({ length: 18 }, function (elem, idx) {
+    return `${6 + idx}:00 - ${7 + idx}:00`;
+  });
 
-wholedaySum = "";
-hours.forEach(function (elem, idx) {
-  let saveData = dayPlanData[idx] || "";
-  wholedaySum =
-  wholedaySum +
-  `  <div class="day-planner-time">
+  wholedaySum = "";
+  hours.forEach(function (elem, idx) {
+    let saveData = dayPlanData[idx] || "";
+    wholedaySum =
+      wholedaySum +
+      `  <div class="day-planner-time">
   <p>${elem}</p>
   <input id="${idx}" type="text" placeholder="..." value="${saveData}" />
   </div>`;
-});
-dayPlanner.innerHTML = wholedaySum;
-
-let dayPlannerInput = document.querySelectorAll(".day-planner input");
-dayPlannerInput.forEach(function (elem) {
-  elem.addEventListener("input", function () {
-    dayPlanData[elem.id] = elem.value;
-    localStorage.setItem("dayPlanData", JSON.stringify(dayPlanData));
   });
-});
+  dayPlanner.innerHTML = wholedaySum;
 
+  let dayPlannerInput = document.querySelectorAll(".day-planner input");
+  dayPlannerInput.forEach(function (elem) {
+    elem.addEventListener("input", function () {
+      dayPlanData[elem.id] = elem.value;
+      localStorage.setItem("dayPlanData", JSON.stringify(dayPlanData));
+    });
+  });
 }
-dailyPlanner()
+dailyPlanner();
 
+function motivationalQuote() {
+  let motivationAuthor = document.querySelector(".motivation-1 h3");
+  let motivationQuoteContent = document.querySelector(".motivation-1 h2");
 
-// api='https://motivational-spark-api.vercel.app/api/quotes/random'
+  async function quote() {
+    let raw = await fetch(
+      "https://motivational-spark-api.vercel.app/api/quotes/random"
+    );
+    let data = await raw.json();
+
+    motivationAuthor.innerHTML = data.author;
+    motivationQuoteContent.innerHTML = data.quote;
+  }
+  quote();
+}
+
+motivationalQuote();
+
+let timer = document.querySelector(".pomo-timer h1");
+let startBtn = document.querySelector(".pomo-timer .start-timer");
+let pauseBtn = document.querySelector(".pomo-timer .pause-timer");
+let resetBtn = document.querySelector(".pomo-timer .reset-timer");
+let session = document.querySelector(".pomodoro-fullpage .session");
+
+let totalSeconds = 25 * 60;
+let timerInterval = null;
+function updateTimer() {
+  let minutes = Math.floor(totalSeconds / 60);
+  let seconds = totalSeconds % 60;
+
+  timer.innerHTML = `${String(minutes).padStart(2, "0")}:${String(
+    seconds
+  ).padStart("2", "0")}`;
+}
+
+function startTimer() {
+  if (timerInterval) return;
+  timerInterval = setInterval(function () {
+    totalSeconds--;
+    updateTimer();
+  }, 300);
+}
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer() {
+  totalSeconds = 25 * 60;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  updateTimer();
+}
+
+startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
+resetBtn.addEventListener("click", resetTimer);
