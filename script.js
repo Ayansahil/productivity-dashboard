@@ -145,10 +145,16 @@ function updateTimer() {
 function startTimer() {
   if (timerInterval) return;
   timerInterval = setInterval(function () {
-    totalSeconds--;
-    updateTimer();
-  }, 300);
+    if (totalSeconds > 0) {
+      totalSeconds--;
+      updateTimer();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }, 1000);
 }
+
 function pauseTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
