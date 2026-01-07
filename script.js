@@ -122,51 +122,73 @@ function motivationalQuote() {
   }
   quote();
 }
-
 motivationalQuote();
 
-let timer = document.querySelector(".pomo-timer h1");
-let startBtn = document.querySelector(".pomo-timer .start-timer");
-let pauseBtn = document.querySelector(".pomo-timer .pause-timer");
-let resetBtn = document.querySelector(".pomo-timer .reset-timer");
-let session = document.querySelector(".pomodoro-fullpage .session");
+function pomodoroTimer() {
+  let timer = document.querySelector(".pomo-timer h1");
+  let startBtn = document.querySelector(".pomo-timer .start-timer");
+  let pauseBtn = document.querySelector(".pomo-timer .pause-timer");
+  let resetBtn = document.querySelector(".pomo-timer .reset-timer");
+  let session = document.querySelector(".pomodoro-fullpage .session");
 
-let totalSeconds = 25 * 60;
-let timerInterval = null;
-function updateTimer() {
-  let minutes = Math.floor(totalSeconds / 60);
-  let seconds = totalSeconds % 60;
+  let totalSeconds = 25 * 60;
+  let timerInterval = null;
+  function updateTimer() {
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
 
-  timer.innerHTML = `${String(minutes).padStart(2, "0")}:${String(
-    seconds
-  ).padStart("2", "0")}`;
+    timer.innerHTML = `${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart("2", "0")}`;
+  }
+
+  function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function () {
+      if (totalSeconds > 0) {
+        totalSeconds--;
+        updateTimer();
+      } else {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  function resetTimer() {
+    totalSeconds = 25 * 60;
+    clearInterval(timerInterval);
+    timerInterval = null;
+    updateTimer();
+  }
+
+  startBtn.addEventListener("click", startTimer);
+  pauseBtn.addEventListener("click", pauseTimer);
+  resetBtn.addEventListener("click", resetTimer);
 }
+pomodoroTimer();
 
-function startTimer() {
-  if (timerInterval) return;
-  timerInterval = setInterval(function () {
-    if (totalSeconds > 0) {
-      totalSeconds--;
-      updateTimer();
-    } else {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  }, 1000);
+// let apiKey = "ec9d609340f74ffd902110819251302";
+let city = "Bhopal";
+async function weatherAPICall() {
+  let response = await fetch(
+    `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
+  );
+  let data = await response.json();
+  console.log(data);
 }
+weatherAPICall();
 
-function pauseTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
+let temp = document.querySelector("header .header2 h2");
+let location = document.querySelector("header .header1 h4");
+let condition = document.querySelector("header .header2 h4");
+let icon = document.querySelector(".weather-circle");
 
-function resetTimer() {
-  totalSeconds = 25 * 60;
-  clearInterval(timerInterval);
-  timerInterval = null;
-  updateTimer();
-}
 
-startBtn.addEventListener("click", startTimer);
-pauseBtn.addEventListener("click", pauseTimer);
-resetBtn.addEventListener("click", resetTimer);
+temp.innerHTML=`${data.current.temp_c}°C`;
+location.innerHTML=`${data.location.name}`
