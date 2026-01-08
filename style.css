@@ -711,7 +711,7 @@ header .header2 h3 {
 .motivation-container {
   height: 600px;
   width: 800px;
-  background-image: url(./QuoBg.png);
+  background-image: url(./images/QuoBg.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

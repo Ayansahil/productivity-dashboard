@@ -173,22 +173,22 @@ function pomodoroTimer() {
 }
 pomodoroTimer();
 
-// let apiKey = "ec9d609340f74ffd902110819251302";
-let city = "Bhopal";
-async function weatherAPICall() {
-  let response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
-  );
-  let data = await response.json();
-  console.log(data);
-}
-weatherAPICall();
+// // let apiKey = "ec9d609340f74ffd902110819251302";
+// let city = "Bhopal";
+// async function weatherAPICall() {
+//   let response = await fetch(
+//     `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
+//   );
+//   let data = await response.json();
+//   console.log(data);
+// }
+// weatherAPICall();
 
-let temp = document.querySelector("header .header2 h2");
-let location = document.querySelector("header .header1 h4");
-let condition = document.querySelector("header .header2 h4");
-let icon = document.querySelector(".weather-circle");
+// let temp = document.querySelector("header .header2 h2");
+// let location = document.querySelector("header .header1 h4");
+// let condition = document.querySelector("header .header2 h4");
+// let icon = document.querySelector(".weather-circle");
 
 
-temp.innerHTML=`${data.current.temp_c}°C`;
-location.innerHTML=`${data.location.name}`
+// temp.innerHTML=`${data.current.temp_c}°C`;
+// location.innerHTML=`${data.location.name}`
