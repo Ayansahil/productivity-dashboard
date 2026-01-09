@@ -173,22 +173,64 @@ function pomodoroTimer() {
 }
 pomodoroTimer();
 
-// // let apiKey = "ec9d609340f74ffd902110819251302";
-// let city = "Bhopal";
-// async function weatherAPICall() {
-//   let response = await fetch(
-//     `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
-//   );
-//   let data = await response.json();
-//   console.log(data);
-// }
-// weatherAPICall();
+let apiKey = "ec9d609340f74ffd902110819251302";
+let city = "Bhopal";
 
-// let temp = document.querySelector("header .header2 h2");
-// let location = document.querySelector("header .header1 h4");
-// let condition = document.querySelector("header .header2 h4");
-// let icon = document.querySelector(".weather-circle");
+document.addEventListener("DOMContentLoaded", function () {
+  let temp = document.querySelector("header .header2 h2");
+  let location = document.querySelector("header .header1 h4");
+  let condition = document.querySelector("header .header2 h4");
+  let icon = document.querySelector(".weather-circle");
+  let precipitation = document.querySelector(".precipitation");
+  let humidity = document.querySelector(".humidity");
+  let wind = document.querySelector(".wind");
+  let dateElement = document.querySelector("header .header1 h2");
+  let timeElement = document.querySelector("header .header1 h1");
 
+  async function weatherAPICall() {
+    try {
+      let response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
+      );
+      let data = await response.json();
 
-// temp.innerHTML=`${data.current.temp_c}°C`;
-// location.innerHTML=`${data.location.name}`
+      // Update weather information in the dashboard
+      temp.innerHTML = `${data.current.temp_c}°C`;
+      location.innerHTML = `${data.location.name} (${data.location.region})`;
+      condition.innerHTML = `${data.current.condition.text}`;
+
+      // Update weather details
+      precipitation.innerHTML = `Precipitation: ${data.current.precip_mm}mm`;
+      humidity.innerHTML = `Humidity: ${data.current.humidity}%`;
+      wind.innerHTML = `Wind: ${data.current.wind_kph} km/h`;
+
+      // Update date and time from API
+      updateDateTime(data.location.localtime);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      condition.innerHTML = "Unable to fetch weather";
+    }
+  }
+
+  // Function to update date and time
+  function updateDateTime(localtime) {
+    const date = new Date(localtime);
+
+    // Format date: "20 April 2025"
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const formattedDate = date.toLocaleDateString("en-GB", options);
+
+    // Format time: "Saturday, 1:00 pm"
+    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+    const time = date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    dateElement.innerHTML = formattedDate;
+    timeElement.innerHTML = `${dayName}, ${time}`;
+  }
+
+  weatherAPICall();
+});
