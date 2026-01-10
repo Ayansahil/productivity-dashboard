@@ -792,25 +792,6 @@ header .header2 h3 {
   letter-spacing: 3px;
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
-
-/* .pomodoro-fullpage .session {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 12px 35px;
-    font-size: 24px;
-    border-radius: 10px;
-    color: #ffffff;
-    font-weight: 600;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    letter-spacing: 1px;
-   
-} */
-
 .pomodoro-fullpage .pomo-timer {
   position: absolute;
   top: 50%;

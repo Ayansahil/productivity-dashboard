@@ -200,7 +200,9 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.innerHTML = `<img src="${data.current.condition.icon}">`;
 
       // Update weather details
-      heatindex.innerHTML = `Heat Index: ${Math.floor(data.current.heatindex_c)}°C`;
+      heatindex.innerHTML = `Heat Index: ${Math.floor(
+        data.current.heatindex_c
+      )}°C`;
       humidity.innerHTML = `Humidity: ${data.current.humidity}%`;
       wind.innerHTML = `Wind: ${data.current.wind_kph} km/h`;
 
@@ -237,3 +239,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   weatherAPICall();
 });
+
+function changeTheme() {
+  let theme = document.querySelector(".theme");
+  let rootElement = document.documentElement;
+  let flag = 0;
+
+  theme.addEventListener("click", function () {
+    if (flag == 0) {
+      rootElement.style.setProperty("--pri", "#F8F4E1");
+      rootElement.style.setProperty("--sec", "#222831");
+      rootElement.style.setProperty("--tri", "#948979");
+      rootElement.style.setProperty("--four", "#393E46");
+      flag = 1;
+    } else if (flag == 1) {
+      rootElement.style.setProperty("--pri", "#F1EFEC");
+      rootElement.style.setProperty("--sec", "#030303");
+      rootElement.style.setProperty("--tri", "#D4C9BE");
+      rootElement.style.setProperty("--four", "#123458");
+      flag = 2;
+    } else if (flag == 2) {
+      rootElement.style.setProperty("--pri", "#F8F4E1");
+      rootElement.style.setProperty("--sec", "#A8DF8E");
+      rootElement.style.setProperty("--tri", "#F0FFDF");
+      rootElement.style.setProperty("--four", "#FFD8DF");
+      flag = 0;
+    }
+  });
+}
+
+changeTheme();
