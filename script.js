@@ -173,6 +173,234 @@ function pomodoroTimer() {
 }
 pomodoroTimer();
 
+// Daily Goals - Open/Close Functionality
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all elements
+  const allElems = document.querySelectorAll(".elem");
+  const allFullElems = document.querySelectorAll(".fullElem");
+  const allCloseButtons = document.querySelectorAll(".back");
+
+  // Add click event to all cards
+  allElems.forEach((elem, index) => {
+    elem.addEventListener("click", function () {
+      // Hide all full page elements first
+      allFullElems.forEach((fullElem) => {
+        fullElem.style.display = "none";
+      });
+
+      // Show the corresponding full page element
+      if (allFullElems[index]) {
+        allFullElems[index].style.display = "block";
+      }
+    });
+  });
+
+  // Add click event to all close buttons
+  allCloseButtons.forEach((closeBtn) => {
+    closeBtn.addEventListener("click", function () {
+      const parentFullElem = this.closest(".fullElem");
+      if (parentFullElem) {
+        parentFullElem.style.display = "none";
+      }
+    });
+  });
+
+  // Priority button selection for Daily Goals
+  document.querySelectorAll(".priority-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      document
+        .querySelectorAll(".priority-btn")
+        .forEach((b) => b.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+
+  // Load goals from localStorage
+  loadGoals();
+
+  // Add goal form submission
+  const goalForm = document.getElementById("goal-form");
+  if (goalForm) {
+    goalForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("goal-title").value.trim();
+      const description = document
+        .getElementById("goal-description")
+        .value.trim();
+      const category = document.getElementById("goal-category").value;
+      const target = document.getElementById("goal-target").value;
+      const priority = document.querySelector(".priority-btn.active").dataset
+        .priority;
+
+      if (!title) return;
+
+      const newGoal = {
+        id: Date.now(),
+        title,
+        description,
+        category,
+        target,
+        priority,
+        completed: false,
+        createdAt: new Date().toISOString(),
+      };
+
+      dailyGoals.push(newGoal);
+      saveGoals();
+      renderGoals();
+      updateProgress();
+
+      // Reset form
+      this.reset();
+      document
+        .querySelectorAll(".priority-btn")
+        .forEach((b) => b.classList.remove("active"));
+      document
+        .querySelector('.priority-btn[data-priority="medium"]')
+        .classList.add("active");
+    });
+  }
+});
+
+// Goals array
+let dailyGoals = [];
+
+// Load goals
+function loadGoals() {
+  const savedGoals = localStorage.getItem("dailyGoals");
+  if (savedGoals) {
+    dailyGoals = JSON.parse(savedGoals);
+    renderGoals();
+    updateProgress();
+  }
+}
+
+// Save goals
+function saveGoals() {
+  localStorage.setItem("dailyGoals", JSON.stringify(dailyGoals));
+}
+
+// Render goals
+function renderGoals() {
+  const goalsList = document.getElementById("goals-list");
+  if (!goalsList) return;
+
+  if (dailyGoals.length === 0) {
+    goalsList.innerHTML = `
+      <div class="empty-state">
+        <i class="ri-flag-line"></i>
+        <p>No goals yet. Start by adding your first goal!</p>
+      </div>
+    `;
+    return;
+  }
+
+  goalsList.innerHTML = dailyGoals
+    .map(
+      (goal) => `
+    <div class="goal-item ${goal.completed ? "completed" : ""}" data-id="${
+        goal.id
+      }">
+      <div class="goal-item-header">
+        <div class="goal-title-section">
+          <h4>
+            <input type="checkbox" ${
+              goal.completed ? "checked" : ""
+            } onchange="toggleGoal(${goal.id})">
+            <span style="${
+              goal.completed ? "text-decoration: line-through;" : ""
+            }">${goal.title}</span>
+          </h4>
+          ${
+            goal.category
+              ? `<span class="goal-category-badge">${getCategoryIcon(
+                  goal.category
+                )} ${goal.category}</span>`
+              : ""
+          }
+        </div>
+        <div class="goal-actions">
+          <button class="goal-action-btn delete-btn" onclick="deleteGoal(${
+            goal.id
+          })">
+            <i class="ri-delete-bin-line"></i>
+          </button>
+        </div>
+      </div>
+      ${
+        goal.description
+          ? `<p class="goal-description">${goal.description}</p>`
+          : ""
+      }
+      <div class="goal-meta">
+        <span class="goal-priority ${
+          goal.priority
+        }">${goal.priority.toUpperCase()}</span>
+        ${
+          goal.target
+            ? `<span class="goal-target">Target: ${goal.target}</span>`
+            : ""
+        }
+      </div>
+    </div>
+  `
+    )
+    .join("");
+}
+
+// Get category icon
+function getCategoryIcon(category) {
+  const icons = {
+    health: "🏃",
+    work: "💼",
+    learning: "📚",
+    personal: "🎯",
+    finance: "💰",
+    social: "👥",
+    other: "✨",
+  };
+  return icons[category] || "✨";
+}
+
+// Toggle goal
+function toggleGoal(id) {
+  const goal = dailyGoals.find((g) => g.id === id);
+  if (goal) {
+    goal.completed = !goal.completed;
+    saveGoals();
+    renderGoals();
+    updateProgress();
+  }
+}
+
+// Delete goal
+function deleteGoal(id) {
+  if (confirm("Are you sure you want to delete this goal?")) {
+    dailyGoals = dailyGoals.filter((g) => g.id !== id);
+    saveGoals();
+    renderGoals();
+    updateProgress();
+  }
+}
+
+// Update progress
+function updateProgress() {
+  const total = dailyGoals.length;
+  const completed = dailyGoals.filter((g) => g.completed).length;
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  const completedCount = document.querySelector(".completed-count");
+  const totalCount = document.querySelector(".total-count");
+  const progressFill = document.querySelector(".progress-fill");
+  const progressPercentage = document.querySelector(".progress-percentage");
+
+  if (completedCount) completedCount.textContent = completed;
+  if (totalCount) totalCount.textContent = total;
+  if (progressFill) progressFill.style.width = `${percentage}%`;
+  if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   let temp = document.querySelector("header .header2 h2");
   let location = document.querySelector("header .header1 h4");
@@ -247,22 +475,22 @@ function changeTheme() {
 
   theme.addEventListener("click", function () {
     if (flag == 0) {
-      rootElement.style.setProperty("--pri", "#F8F4E1");
-      rootElement.style.setProperty("--sec", "#222831");
-      rootElement.style.setProperty("--tri", "#948979");
-      rootElement.style.setProperty("--four", "#393E46");
+      rootElement.style.setProperty("--pri", "#FFFFFF"); // Primary bg: white
+      rootElement.style.setProperty("--sec", "#1E1E1E"); // Secondary text: dark gray
+      rootElement.style.setProperty("--tri", "#666666"); // Tertiary: medium gray
+      rootElement.style.setProperty("--four", "#E0E0E0"); // Accent: light gray
       flag = 1;
     } else if (flag == 1) {
-      rootElement.style.setProperty("--pri", "#F1EFEC");
-      rootElement.style.setProperty("--sec", "#030303");
-      rootElement.style.setProperty("--tri", "#D4C9BE");
-      rootElement.style.setProperty("--four", "#123458");
+      rootElement.style.setProperty("--pri", "#121212"); // Primary bg: dark
+      rootElement.style.setProperty("--sec", "#E8E8E8"); // Secondary text: light gray
+      rootElement.style.setProperty("--tri", "#BBBBBB"); // Tertiary: medium light
+      rootElement.style.setProperty("--four", "#333333"); // Accent: darker gray
       flag = 2;
     } else if (flag == 2) {
-      rootElement.style.setProperty("--pri", "#F8F4E1");
-      rootElement.style.setProperty("--sec", "#A8DF8E");
-      rootElement.style.setProperty("--tri", "#F0FFDF");
-      rootElement.style.setProperty("--four", "#FFD8DF");
+      rootElement.style.setProperty("--pri", "#F5F5F5"); // Primary bg: off-white
+      rootElement.style.setProperty("--sec", "#2D2D2D"); // Secondary text: dark muted
+      rootElement.style.setProperty("--tri", "#A0A0A0"); // Tertiary: neutral gray
+      rootElement.style.setProperty("--four", "#D0D0D0"); // Accent: medium gray
       flag = 0;
     }
   });

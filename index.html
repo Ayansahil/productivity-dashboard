@@ -17,12 +17,11 @@
   </head>
   <body>
     <div class="main">
-
-       <nav>
-            <div class="theme">
-                <i class="ri-sun-line"></i>
-            </div>
-           </nav>
+      <nav>
+        <div class="theme">
+          <i class="ri-sun-line"></i>
+        </div>
+      </nav>
 
       <section class="allElems">
         <header>
@@ -172,6 +171,101 @@
       <section class="fullElem daily-goals-fullpage">
         <button class="back" id="4">Close</button>
         <h2>Daily Goals</h2>
+        <div class="daily-goals-container">
+          <!-- Left Side - Add Goal Form -->
+          <div class="add-goal-section">
+            <h3>Create New Goal</h3>
+            <form id="goal-form">
+              <input
+                type="text"
+                id="goal-title"
+                placeholder="Goal Title"
+                required
+              />
+
+              <textarea
+                id="goal-description"
+                placeholder="Goal Description (Optional)"
+                rows="3"
+              ></textarea>
+
+              <select id="goal-category">
+                <option value="">Select Category</option>
+                <option value="health">🏃 Health & Fitness</option>
+                <option value="work">💼 Work & Career</option>
+                <option value="learning">📚 Learning</option>
+                <option value="personal">🎯 Personal Development</option>
+                <option value="finance">💰 Finance</option>
+                <option value="social">👥 Social</option>
+                <option value="other">✨ Other</option>
+              </select>
+
+              <input
+                type="number"
+                id="goal-target"
+                placeholder="Target (e.g., 10 pages, 5 km)"
+                min="1"
+              />
+
+              <div class="priority-selector">
+                <label>Priority Level:</label>
+                <div class="priority-buttons">
+                  <button
+                    type="button"
+                    class="priority-btn"
+                    data-priority="low"
+                  >
+                    Low
+                  </button>
+                  <button
+                    type="button"
+                    class="priority-btn active"
+                    data-priority="medium"
+                  >
+                    Medium
+                  </button>
+                  <button
+                    type="button"
+                    class="priority-btn"
+                    data-priority="high"
+                  >
+                    High
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="add-goal-btn">
+                <i class="ri-add-line"></i> Add Goal
+              </button>
+            </form>
+          </div>
+
+          <!-- Right Side - Goals Display -->
+          <div class="goals-display-section">
+            <div class="goals-header">
+              <h3>Today's Goals</h3>
+              <div class="progress-summary">
+                <span class="completed-count">0</span> /
+                <span class="total-count">0</span> Completed
+              </div>
+            </div>
+
+            <div class="progress-bar-container">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+              <span class="progress-percentage">0%</span>
+            </div>
+
+            <div class="goals-list" id="goals-list">
+              <!-- Goals will be dynamically added here -->
+              <div class="empty-state">
+                <i class="ri-flag-line"></i>
+                <p>No goals yet. Start by adding your first goal!</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
 

@@ -1,8 +1,8 @@
 :root {
-  --pri: white;
-  --sec: black;
-  --tri: lightseagreen;
-  --four: #7aa2e3;
+  --pri: #f8f4e1;
+  --sec: #222831;
+  --tri: #948979;
+  --four: #393e46;
   --five: #f8f6e3;
   --six: #595956;
   --seven: rgb(235, 21, 21);
@@ -11,7 +11,6 @@
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.18);
 }
-
 @font-face {
   font-family: aeonik;
   src: url(./AeonikTRIAL-Light.otf);
@@ -33,36 +32,40 @@
   src: url(./NeueMachina-Regular.ttf);
   font-weight: 600;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: aeonik;
   color: var(--pri);
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
+
 html,
 body {
   height: 100%;
   width: 100%;
 }
+
 body {
-  background: linear-gradient(135deg, 
-#1e3c72 0%, 
-#2a5298 50%, 
-#7e22ce 100%);
-  height: 100vh;
-  overflow: hidden;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
   color: white;
 }
+
 .main {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-color: var(--sec);
 }
 
 nav {
   width: 100%;
-  /* background-color: var(--four); */
   padding: 0.5rem 2rem;
   position: sticky;
   top: 0;
@@ -70,6 +73,7 @@ nav {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  /* background-color: var(--sec); */
 }
 
 .theme {
@@ -96,11 +100,12 @@ nav {
 }
 
 section.allElems {
-  height: 100%;
   width: 100%;
   padding: 30px;
-  overflow: hidden;
-  position: absolute;
+  min-height: calc(100vh - 60px);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .allElems header {
@@ -180,6 +185,7 @@ section.allElems {
   justify-content: space-between;
   width: 100%;
 }
+
 header .header1 h1 {
   font-size: 4rem;
   font-weight: 700;
@@ -264,6 +270,7 @@ header .header2 h3 {
   justify-content: center;
   gap: 2rem;
   position: relative;
+  padding-bottom: 40px;
 }
 
 .elem {
@@ -471,34 +478,24 @@ header .header2 h3 {
   );
 }
 
-.elem,
-.elem img,
-.elem-overlay,
-.elem-gradient,
-.elem-content,
-.allElems header {
-  will-change: transform;
-}
-
-.elem:hover {
-  will-change: transform, box-shadow;
-}
-
 .fullElem {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: var(--tri);
   display: none;
   padding: 2.5rem;
-  position: absolute;
+  position: fixed;
   top: 0;
-  z-index: 99;
-  transition: all ease 0.3s;
+  left: 0;
+  z-index: 999;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .back {
   position: absolute;
   right: 10%;
+  top: 2rem;
   padding: 0.875rem 1.5rem;
   border-radius: 0.5rem;
   border: none;
@@ -506,7 +503,9 @@ header .header2 h3 {
   font-size: 1.2rem;
   font-weight: 200;
   cursor: pointer;
+  z-index: 10;
 }
+
 .back:active {
   scale: 0.97;
   transition: all ease 0.2s;
@@ -515,6 +514,7 @@ header .header2 h3 {
 .todo-list-fullpage {
   background-color: var(--six);
 }
+
 .todo-list-fullpage h2 {
   font-size: 2rem;
 }
@@ -529,12 +529,14 @@ header .header2 h3 {
   justify-content: space-between;
   gap: 1.5rem;
 }
+
 .todo-list-fullpage .todo-container .addTask {
   height: 100%;
   width: 35%;
   border-radius: 1rem;
   background-color: var(--four);
 }
+
 .todo-list-fullpage .todo-container .allTask {
   height: 100%;
   width: 75%;
@@ -563,6 +565,7 @@ header .header2 h3 {
   margin-bottom: 1.25rem;
   font-weight: 400;
 }
+
 .todo-container .addTask form textarea {
   padding: 1.2rem 2rem;
   width: 100%;
@@ -608,11 +611,7 @@ header .header2 h3 {
 .task h5 {
   color: var(--sec);
   font-size: 2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: flex-start;
   gap: 6px;
 }
@@ -624,6 +623,7 @@ header .header2 h3 {
   padding: 4px 8px;
   border-radius: 20px;
 }
+
 .task h5 span.true {
   opacity: 1;
 }
@@ -631,6 +631,7 @@ header .header2 h3 {
 .task h5 span.false {
   opacity: 0;
 }
+
 .task button {
   padding: 15px 30px;
   color: var(--pri);
@@ -674,6 +675,7 @@ header .header2 h3 {
   overflow: auto;
   scroll-behavior: smooth;
 }
+
 .day-planner::-webkit-scrollbar {
   display: none;
 }
@@ -685,6 +687,7 @@ header .header2 h3 {
   margin-bottom: 20px;
   width: 49%;
 }
+
 .day-planner .day-planner-time input {
   background-color: var(--six);
   width: 100%;
@@ -695,6 +698,7 @@ header .header2 h3 {
   font-size: 2.2rem;
   padding-top: 30px;
 }
+
 .day-planner .day-planner-time p {
   font-size: 0.875rem;
   color: var(--pri);
@@ -722,7 +726,6 @@ header .header2 h3 {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -737,26 +740,20 @@ header .header2 h3 {
   height: 260px;
   padding: 30px;
   margin-top: 60px;
-
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column-reverse;
   gap: 20px;
   text-align: center;
-
   overflow-y: auto;
   word-wrap: break-word;
-
   background: transparent;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-
   border: 2px solid #affe2fd0;
   border-radius: 12px;
-
   box-shadow: 0 8px 25px #adfe2f, inset 0 0 20px rgba(203, 239, 148, 0.345);
-
   color: #fff;
 }
 
@@ -792,6 +789,7 @@ header .header2 h3 {
   letter-spacing: 3px;
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
 .pomodoro-fullpage .pomo-timer {
   position: absolute;
   top: 50%;
@@ -876,9 +874,457 @@ header .header2 h3 {
   color: #ffffff;
 }
 
-/* Responsive Design - Mobile & Tablet */
+/* DAILY GOALS STYLES */
+.daily-goals-fullpage {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-/* Tablet Styles (768px - 1024px) */
+.daily-goals-fullpage h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.daily-goals-container {
+  display: flex;
+  gap: 2rem;
+  height: calc(100% - 120px);
+  margin-top: 20px;
+}
+
+.add-goal-section {
+  width: 35%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.add-goal-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.add-goal-section::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.add-goal-section::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.add-goal-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.add-goal-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-goal-section input,
+.add-goal-section textarea,
+.add-goal-section select {
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: aeonik;
+  font-weight: 400;
+}
+
+.add-goal-section input::placeholder,
+.add-goal-section textarea::placeholder {
+  color: #999;
+}
+
+.add-goal-section input:focus,
+.add-goal-section textarea:focus,
+.add-goal-section select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: white;
+  transform: translateY(-2px);
+}
+
+.add-goal-section textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-goal-section select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+.priority-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.priority-selector label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.priority-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.priority-btn {
+  flex: 1;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priority-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.priority-btn.active {
+  background: white;
+  color: #667eea;
+  border-color: white;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.add-goal-btn {
+  padding: 1.2rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #48ff48, #00cc00);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 204, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.add-goal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 204, 0, 0.4);
+}
+
+.add-goal-btn:active {
+  transform: translateY(0);
+}
+
+.add-goal-btn i {
+  font-size: 1.3rem;
+}
+
+.goals-display-section {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.goals-header h3 {
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 600;
+}
+
+.progress-summary {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #48ff48, #00cc00);
+  border-radius: 15px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(72, 255, 72, 0.5);
+}
+
+.progress-percentage {
+  font-size: 1.2rem;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: right;
+  color: white;
+}
+
+.goals-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+}
+
+.goals-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.goals-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.goals-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+  opacity: 0.6;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: white;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: white;
+  max-width: 300px;
+  text-align: center;
+}
+
+.goal-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 5px solid #667eea;
+}
+
+.goal-item.completed {
+  opacity: 0.7;
+  border-left-color: #00cc00;
+}
+
+.goal-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.goal-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  gap: 1rem;
+}
+
+.goal-title-section {
+  flex: 1;
+}
+
+.goal-item h4 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 600;
+}
+
+.goal-item h4 input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: #00cc00;
+  flex-shrink: 0;
+}
+
+.goal-item h4 span {
+  flex: 1;
+  word-break: break-word;
+}
+
+.goal-category-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  background: rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.goal-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.goal-action-btn {
+  background: rgba(102, 126, 234, 0.1);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.goal-action-btn i {
+  font-size: 1.2rem;
+  color: #667eea;
+}
+
+.goal-action-btn:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: scale(1.1);
+}
+
+.goal-action-btn.delete-btn i {
+  color: #ff6b6b;
+}
+
+.goal-action-btn.delete-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+}
+
+.goal-description {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  padding-left: 29px;
+}
+
+.goal-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.goal-priority {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.goal-priority.low {
+  background: rgba(72, 255, 72, 0.2);
+  color: #00cc00;
+}
+
+.goal-priority.medium {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ff9800;
+}
+
+.goal-priority.high {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+.goal-target {
+  font-weight: 600;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+}
+
+/* RESPONSIVE DESIGN */
+
 @media (max-width: 1024px) {
   section.allElems {
     padding: 20px;
@@ -888,12 +1334,12 @@ header .header2 h3 {
     padding: 15px 25px;
     flex-direction: column;
     gap: 20px;
-    text-align: center;
   }
 
   .header-content {
     flex-direction: column;
     gap: 20px;
+    text-align: center;
   }
 
   header .header1 h1 {
@@ -914,10 +1360,6 @@ header .header2 h3 {
     font-size: 45px;
   }
 
-  header .header2 h4 {
-    font-size: 22px;
-  }
-
   .allFeatures {
     gap: 1.5rem;
   }
@@ -927,24 +1369,29 @@ header .header2 h3 {
     width: 18rem;
   }
 
-  .elem h2 {
-    font-size: 1.5rem;
+  .daily-goals-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .add-goal-section {
+    width: 100%;
+    max-height: 400px;
+  }
+
+  .goals-display-section {
+    min-height: 500px;
   }
 }
 
-/* Mobile Styles (max-width: 768px) */
 @media (max-width: 768px) {
-  /* Allow scrolling on mobile */
   body {
     overflow-y: auto;
-    overflow-x: hidden;
   }
 
   section.allElems {
     padding: 15px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
+    min-height: auto;
   }
 
   nav {
@@ -960,36 +1407,19 @@ header .header2 h3 {
     font-size: 1.1rem;
   }
 
-  /* Header responsive */
   .allElems header {
     padding: 20px 15px;
     margin-bottom: 20px;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .header-content {
-    flex-direction: column;
-    gap: 15px;
   }
 
   header .header1 h1 {
     font-size: 2.2rem;
     margin-bottom: 15px;
-    letter-spacing: -1px;
   }
 
-  header .header1 h2 {
-    font-size: 18px;
-    margin-bottom: 4px;
-  }
-
+  header .header1 h2,
   header .header1 h4 {
     font-size: 18px;
-  }
-
-  header .header2 {
-    text-align: center;
   }
 
   header .header2 h2 {
@@ -998,22 +1428,14 @@ header .header2 h3 {
 
   header .header2 h4 {
     font-size: 18px;
-    margin-bottom: 20px;
   }
 
   header .header2 h3 {
     font-size: 14px;
   }
 
-  .weather-details {
-    padding: 10px 15px;
-  }
-
-  /* Cards responsive */
   .allFeatures {
     gap: 1.2rem;
-    flex-direction: column;
-    align-items: center;
   }
 
   .elem {
@@ -1026,123 +1448,54 @@ header .header2 h3 {
     font-size: 1.4rem;
   }
 
-  .elem-content {
-    padding: 20px;
-  }
-
-  /* Full page elements responsive */
   .fullElem {
     padding: 1.5rem;
-    overflow-y: auto;
   }
 
   .back {
     right: 5%;
+    top: 1.5rem;
     padding: 0.7rem 1.2rem;
     font-size: 1rem;
-  }
-
-  /* Todo list responsive */
-  .todo-list-fullpage h2 {
-    font-size: 1.5rem;
   }
 
   .todo-list-fullpage .todo-container {
     flex-direction: column;
     height: auto;
-    gap: 1rem;
   }
 
   .todo-list-fullpage .todo-container .addTask,
   .todo-list-fullpage .todo-container .allTask {
     width: 100%;
-    height: auto;
     min-height: 300px;
-  }
-
-  .todo-container .addTask form {
-    padding: 1.5rem;
-  }
-
-  .todo-container .addTask form input#task-inp,
-  .todo-container .addTask form textarea,
-  .todo-container .addTask form button {
-    font-size: 1.2rem;
-    padding: 1rem 1.5rem;
   }
 
   .task {
     flex-direction: column;
     gap: 10px;
-    padding: 1rem;
     align-items: flex-start;
   }
 
-  .task h5 {
-    font-size: 1.5rem;
-  }
-
   .task button {
-    padding: 12px 24px;
-    font-size: 16px;
     width: 100%;
-  }
-
-  /* Daily planner responsive */
-  .daily-planner-fullpage h2 {
-    font-size: 1.8rem;
-  }
-
-  .daily-planner-fullpage .day-planner {
-    padding: 20px;
-    margin-top: 20px;
-    height: auto;
   }
 
   .daily-planner-fullpage .day-planner .day-planner-time {
     width: 100%;
-    margin-bottom: 15px;
-  }
-
-  .day-planner .day-planner-time input {
-    font-size: 1.5rem;
-    padding: 15px 20px;
-    padding-top: 25px;
-  }
-
-  /* Motivation page responsive */
-  .motivation-fullPage-container {
-    height: auto;
-    min-height: 500px;
-    margin-top: 1rem;
   }
 
   .motivation-container {
     width: 95%;
-    height: 500px;
     max-width: 400px;
   }
 
   .motivation-1 {
     width: 90%;
     max-width: 350px;
-    height: 240px;
-    padding: 20px;
-    margin-top: 40px;
   }
 
-  .motivation-1 h2 {
-    font-size: 1.1rem;
-  }
-
-  .motivation-2 h3 {
-    font-size: 1.2rem;
-  }
-
-  /* Pomodoro responsive */
   .pomodoro-fullpage h2 {
     font-size: 32px;
-    top: 3%;
   }
 
   .pomo-timer h1 {
@@ -1150,20 +1503,35 @@ header .header2 h3 {
     margin-bottom: 100px;
   }
 
-  .pomo-timer h1::before {
-    width: 280px;
-    height: 280px;
-  }
-
   .pomo-timer button {
     padding: 14px 30px;
     font-size: 16px;
-    margin: 0 8px;
-    margin-bottom: 10px;
+    margin: 0 8px 10px;
+  }
+
+  .daily-goals-fullpage h2 {
+    font-size: 2rem;
+  }
+
+  .add-goal-section,
+  .goals-display-section {
+    padding: 1.5rem;
+  }
+
+  .goal-item-header {
+    flex-direction: column;
+  }
+
+  .goal-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .goal-description {
+    padding-left: 0;
   }
 }
 
-/* Extra Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
   section.allElems {
     padding: 10px;
@@ -1171,12 +1539,10 @@ header .header2 h3 {
 
   .allElems header {
     padding: 15px 10px;
-    margin-bottom: 15px;
   }
 
   header .header1 h1 {
     font-size: 1.8rem;
-    margin-bottom: 10px;
   }
 
   header .header1 h2,
@@ -1188,21 +1554,8 @@ header .header2 h3 {
     font-size: 32px;
   }
 
-  header .header2 h4 {
-    font-size: 16px;
-  }
-
-  header .header2 h3 {
-    font-size: 12px;
-  }
-
   .elem {
     height: 18rem;
-    width: 100%;
-  }
-
-  .elem h2 {
-    font-size: 1.3rem;
   }
 
   .fullElem {
@@ -1215,83 +1568,31 @@ header .header2 h3 {
     font-size: 0.9rem;
   }
 
-  .todo-list-fullpage h2 {
-    font-size: 1.3rem;
-  }
-
-  .todo-container .addTask form {
-    padding: 1rem;
-  }
-
-  .todo-container .addTask form input#task-inp,
-  .todo-container .addTask form textarea,
-  .todo-container .addTask form button {
-    font-size: 1rem;
-    padding: 0.8rem 1.2rem;
-  }
-
-  .daily-planner-fullpage h2 {
-    font-size: 1.5rem;
-  }
-
-  .day-planner .day-planner-time input {
-    font-size: 1.2rem;
-    padding: 12px 15px;
-    padding-top: 22px;
-  }
-
-  .motivation-1 {
-    height: 220px;
-    padding: 15px;
-  }
-
-  .motivation-1 h2 {
-    font-size: 1rem;
-  }
-
-  .motivation-2 h3 {
-    font-size: 1rem;
-  }
-
-  .pomodoro-fullpage h2 {
-    font-size: 24px;
-  }
-
   .pomo-timer h1 {
     font-size: 4rem;
     margin-bottom: 80px;
   }
 
-  .pomo-timer h1::before {
-    width: 220px;
-    height: 220px;
-  }
-
   .pomo-timer button {
     padding: 12px 24px;
     font-size: 14px;
-    margin: 0 5px;
-    margin-bottom: 8px;
-  }
-}
-
-/* Landscape Mobile Fix */
-@media (max-height: 600px) and (orientation: landscape) {
-  body {
-    overflow-y: auto;
+    margin: 0 5px 8px;
   }
 
-  section.allElems {
-    overflow-y: auto;
+  .daily-goals-fullpage h2 {
+    font-size: 1.5rem;
   }
 
-  .pomo-timer h1 {
-    font-size: 3.5rem;
-    margin-bottom: 60px;
+  .add-goal-section,
+  .goals-display-section {
+    padding: 1rem;
   }
 
-  .pomo-timer button {
-    padding: 10px 20px;
-    font-size: 14px;
+  .goal-item {
+    padding: 1rem;
+  }
+
+  .goal-item h4 {
+    font-size: 1rem;
   }
 }
