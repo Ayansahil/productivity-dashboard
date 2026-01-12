@@ -475,22 +475,22 @@ function changeTheme() {
 
   theme.addEventListener("click", function () {
     if (flag == 0) {
-      rootElement.style.setProperty("--pri", "#FFFFFF"); // Primary bg: white
-      rootElement.style.setProperty("--sec", "#1E1E1E"); // Secondary text: dark gray
-      rootElement.style.setProperty("--tri", "#666666"); // Tertiary: medium gray
-      rootElement.style.setProperty("--four", "#E0E0E0"); // Accent: light gray
+      rootElement.style.setProperty("--pri", "#FFFFFF"); 
+      rootElement.style.setProperty("--sec", "#1E1E1E"); 
+      rootElement.style.setProperty("--tri", "#666666");  
+      rootElement.style.setProperty("--four", "#E0E0E0"); 
       flag = 1;
     } else if (flag == 1) {
-      rootElement.style.setProperty("--pri", "#121212"); // Primary bg: dark
-      rootElement.style.setProperty("--sec", "#E8E8E8"); // Secondary text: light gray
-      rootElement.style.setProperty("--tri", "#BBBBBB"); // Tertiary: medium light
-      rootElement.style.setProperty("--four", "#333333"); // Accent: darker gray
+      rootElement.style.setProperty("--pri", "#121212");
+      rootElement.style.setProperty("--sec", "#E8E8E8"); 
+      rootElement.style.setProperty("--tri", "#BBBBBB"); 
+      rootElement.style.setProperty("--four", "#333333"); 
       flag = 2;
     } else if (flag == 2) {
-      rootElement.style.setProperty("--pri", "#F5F5F5"); // Primary bg: off-white
-      rootElement.style.setProperty("--sec", "#2D2D2D"); // Secondary text: dark muted
-      rootElement.style.setProperty("--tri", "#A0A0A0"); // Tertiary: neutral gray
-      rootElement.style.setProperty("--four", "#D0D0D0"); // Accent: medium gray
+      rootElement.style.setProperty("--pri", "#7bcb41");
+      rootElement.style.setProperty("--sec", "#FF5FCF"); 
+      rootElement.style.setProperty("--tri", "#000000"); 
+      rootElement.style.setProperty("--four", "#cdcdcd");
       flag = 0;
     }
   });

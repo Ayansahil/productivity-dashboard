@@ -487,7 +487,7 @@ header .header2 h3 {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1001;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -720,7 +720,7 @@ header .header2 h3 {
 }
 
 .motivation-container {
-  height: 600px;
+  height: 580px;
   width: 800px;
   background-image: url(./images/QuoBg.png);
   background-position: center;
@@ -1488,6 +1488,16 @@ header .header2 h3 {
     width: 95%;
     max-width: 400px;
   }
+  .motivation-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .motivation-1 h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 
   .motivation-1 {
     width: 90%;
@@ -1562,25 +1572,54 @@ header .header2 h3 {
     padding: 1rem;
   }
 
+  .allTask button {
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .todo-list-fullpage h2,
+  .daily-planner-fullpage h2,
+  .daily-goals-fullpage h2,
+  .pomodoro-fullpage h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .pomo-timer h1::before {
+    width: 280px;
+    height: 280px;
+  }
+  .motivation-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .motivation-container {
+    height: 520px;
+  }
+  .motivation-1 h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
   .back {
     right: 3%;
+    top: 1rem;
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
 
   .pomo-timer h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     margin-bottom: 80px;
   }
 
   .pomo-timer button {
     padding: 12px 24px;
     font-size: 14px;
-    margin: 0 5px 8px;
-  }
-
-  .daily-goals-fullpage h2 {
-    font-size: 1.5rem;
   }
 
   .add-goal-section,
